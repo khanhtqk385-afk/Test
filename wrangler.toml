@@ -1,0 +1,8 @@
+name = "francais-plus-ai"
+main = "worker.js"
+compatibility_date = "2026-11-19"
+
+[vars]
+OPENAI_MODEL = "gpt-6-astra"
+# Replace with the exact deployed GitHub Pages origin, e.g. https://username.github.io
+ALLOWED_ORIGIN = "https://YOUR-USERNAME.github.io"
