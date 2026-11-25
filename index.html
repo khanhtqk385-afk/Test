@@ -1,0 +1,584 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#102b50">
+<title>Français Plus – Học tiếng Pháp A1–B2</title>
+
+<style>
+:root {
+  --navy:#102b50;
+  --blue:#2463c7;
+  --light:#f2f6fc;
+  --white:#fff;
+  --text:#23334c;
+  --muted:#718096;
+  --border:#e3eaf3;
+  --green:#15966b;
+  --red:#d9534f;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--light);
+  color:var(--text);
+}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.topbar{
+  height:65px;
+  background:white;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 22px;
+  position:sticky;
+  top:0;
+  z-index:20;
+}
+.logo{font-size:21px;font-weight:800;color:var(--navy)}
+.logo span{color:var(--blue)}
+.layout{display:flex;min-height:calc(100vh - 65px)}
+.sidebar{
+  width:235px;
+  flex-shrink:0;
+  background:white;
+  border-right:1px solid var(--border);
+  padding:18px 13px;
+}
+.menu-label{
+  font-size:11px;
+  font-weight:bold;
+  color:var(--muted);
+  margin:18px 10px 8px;
+  letter-spacing:1px;
+}
+.navbtn{
+  display:block;
+  width:100%;
+  border:0;
+  background:transparent;
+  text-align:left;
+  padding:12px;
+  margin:3px 0;
+  border-radius:9px;
+  color:#53647d;
+  font-weight:600;
+}
+.navbtn:hover,.navbtn.active{
+  background:#eaf1ff;
+  color:var(--blue);
+}
+.main{
+  width:100%;
+  max-width:1450px;
+  padding:25px;
+  margin:auto;
+}
+.view{display:none}
+.view.active{display:block}
+h1{font-size:27px;color:var(--navy);margin:0 0 10px}
+h2{font-size:21px;color:var(--navy)}
+h3{color:var(--navy)}
+p{line-height:1.6}
+.subtitle{color:var(--muted)}
+.hero{
+  background:linear-gradient(120deg,#102b50,#2866c5);
+  color:white;
+  border-radius:18px;
+  padding:30px;
+  margin-bottom:22px;
+}
+.hero h1{color:white;font-size:30px}
+.hero p{color:#e0eaff}
+.btn{
+  border:0;
+  border-radius:9px;
+  padding:11px 17px;
+  background:var(--blue);
+  color:white;
+  font-weight:bold;
+}
+.btn:hover{opacity:.88}
+.btn.secondary{background:#eaf1ff;color:var(--blue)}
+.btn.green{background:var(--green)}
+.btn.red{background:var(--red)}
+.card{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:13px;
+  padding:19px;
+  margin-bottom:14px;
+  box-shadow:0 5px 20px rgba(24,52,90,.05);
+}
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin:20px 0;
+}
+.stat-number{
+  font-size:27px;
+  font-weight:800;
+  color:var(--blue);
+  margin:8px 0;
+}
+.stat-label{font-size:13px;color:var(--muted)}
+.levels{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+.level-card{cursor:pointer;transition:.2s}
+.level-card:hover{transform:translateY(-3px)}
+.level-tag{
+  display:inline-block;
+  padding:5px 10px;
+  border-radius:20px;
+  background:#eaf1ff;
+  color:var(--blue);
+  font-weight:bold;
+  font-size:12px;
+}
+.progress{
+  height:8px;
+  background:#e9eef5;
+  border-radius:20px;
+  overflow:hidden;
+  margin:12px 0;
+}
+.progress div{
+  height:100%;
+  background:var(--blue);
+  width:0;
+}
+.course-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+.lesson-item{
+  background:white;
+  padding:17px;
+  border:1px solid var(--border);
+  border-radius:12px;
+}
+.lesson-item p{color:var(--muted);font-size:14px}
+select,input,textarea{
+  width:100%;
+  padding:12px;
+  border:1px solid var(--border);
+  border-radius:9px;
+  background:white;
+  margin:7px 0 13px;
+}
+.question{
+  padding:20px;
+  background:white;
+  border:1px solid var(--border);
+  border-radius:12px;
+  margin:15px 0;
+}
+.option{
+  display:block;
+  width:100%;
+  text-align:left;
+  padding:13px;
+  margin:8px 0;
+  border:1px solid var(--border);
+  background:white;
+  border-radius:9px;
+}
+.option.selected{border-color:var(--blue);background:#eaf1ff}
+.option.correct{border-color:var(--green);background:#e4f7ed}
+.option.wrong{border-color:var(--red);background:#fff0f0}
+.word-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  padding:13px 0;
+  border-bottom:1px solid var(--border);
+}
+.word-row p{margin:4px 0;color:var(--muted)}
+.chat-box{
+  height:340px;
+  overflow:auto;
+  background:#f7f9fd;
+  padding:15px;
+  border-radius:10px;
+  margin:12px 0;
+}
+.message{
+  max-width:88%;
+  padding:11px 13px;
+  border-radius:12px;
+  margin:9px 0;
+  line-height:1.5;
+  white-space:pre-wrap;
+}
+.message.bot{background:white;border:1px solid var(--border)}
+.message.user{background:#dceaff;margin-left:auto}
+.notice{
+  background:#fff8e6;
+  border:1px solid #f4e1ad;
+  padding:13px;
+  border-radius:9px;
+  color:#795b15;
+  font-size:13px;
+}
+.footer{
+  text-align:center;
+  padding:25px;
+  color:var(--muted);
+  font-size:12px;
+}
+.hidden{display:none!important}
+@media(max-width:900px){
+  .sidebar{width:190px}
+  .levels{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:650px){
+  .layout{display:block}
+  .sidebar{
+    width:100%;
+    display:flex;
+    overflow-x:auto;
+    padding:7px;
+    border-right:0;
+    border-bottom:1px solid var(--border);
+    position:sticky;
+    top:65px;
+    z-index:10;
+  }
+  .menu-label{display:none}
+  .navbtn{
+    min-width:max-content;
+    width:auto;
+    padding:10px;
+    font-size:12px;
+  }
+  .main{padding:14px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .levels,.course-grid{grid-template-columns:1fr}
+  .hero{padding:22px}
+  h1{font-size:23px}
+  .word-row{align-items:flex-start}
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="logo">FRANÇAIS <span>PLUS</span></div>
+  <div>🇫🇷 Français – Việt</div>
+</header>
+
+<div class="layout">
+
+<aside class="sidebar">
+  <button class="navbtn active" data-view="home">🏠 Trang chủ</button>
+  <button class="navbtn" data-view="courses">📚 Khóa học</button>
+  <button class="navbtn" data-view="practice">✍️ Bài tập</button>
+  <button class="navbtn" data-view="vocabulary">📖 Từ vựng</button>
+  <button class="navbtn" data-view="listening">🎧 Luyện nghe</button>
+  <button class="navbtn" data-view="speaking">🗣️ Luyện nói</button>
+  <button class="navbtn" data-view="ai">🤖 AI Français</button>
+  <button class="navbtn" data-view="progress">📊 Tiến độ</button>
+  <button class="navbtn" data-view="guide">❓ Hướng dẫn</button>
+</aside>
+
+<main class="main">
+
+<!-- TRANG CHỦ -->
+<section class="view active" id="home">
+  <div class="hero">
+    <h1>Bonjour ! Bienvenue sur Français Plus 🇫🇷</h1>
+    <p>Học tiếng Pháp mỗi ngày – Từ cơ bản đến nâng cao.</p>
+    <p>Chinh phục A1, A2, B1 và B2 theo lộ trình của bạn.</p>
+    <button class="btn" onclick="go('courses')">Bắt đầu học ngay →</button>
+  </div>
+
+  <div class="stats">
+    <div class="card">
+      <div class="stat-label">Bài học hoàn thành</div>
+      <div class="stat-number" id="statDone">0</div>
+    </div>
+    <div class="card">
+      <div class="stat-label">Từ vựng đã học</div>
+      <div class="stat-number" id="statWords">0</div>
+    </div>
+    <div class="card">
+      <div class="stat-label">Điểm trung bình</div>
+      <div class="stat-number" id="statScore">0%</div>
+    </div>
+    <div class="card">
+      <div class="stat-label">Ngày học liên tiếp</div>
+      <div class="stat-number" id="statStreak">0</div>
+    </div>
+  </div>
+
+  <h2>Chọn trình độ – Choisissez votre niveau</h2>
+  <div class="levels" id="homeLevels"></div>
+
+  <div class="card" style="margin-top:20px" id="continueBox">
+    <h3>Tiếp tục học</h3>
+    <p>Chào mừng bạn đến với Français Plus!</p>
+  </div>
+</section>
+
+<!-- KHÓA HỌC -->
+<section class="view" id="courses">
+  <h1>📚 Khóa học tiếng Pháp</h1>
+  <p class="subtitle">Cours de français – A1 à B2</p>
+  <label for="courseLevel">Chọn trình độ</label>
+  <select id="courseLevel">
+    <option>A1</option><option>A2</option>
+    <option>B1</option><option>B2</option>
+  </select>
+  <div id="courseProgress"></div>
+  <div class="course-grid" id="courseList"></div>
+</section>
+
+<!-- BÀI HỌC -->
+<section class="view" id="lesson">
+  <button class="btn secondary" onclick="go('courses')">← Quay lại khóa học</button>
+  <div id="lessonContent" class="card" style="margin-top:15px"></div>
+</section>
+
+<!-- BÀI TẬP -->
+<section class="view" id="practice">
+  <h1>✍️ Ngân hàng bài tập</h1>
+  <p class="subtitle">Exercices de grammaire et vocabulaire.</p>
+  <label for="practiceLevel">Chọn trình độ</label>
+  <select id="practiceLevel">
+    <option>A1</option><option>A2</option>
+    <option>B1</option><option>B2</option>
+  </select>
+  <button class="btn" onclick="startQuiz()">Bắt đầu làm bài</button>
+  <div id="quizArea"></div>
+</section>
+
+<!-- TỪ VỰNG -->
+<section class="view" id="vocabulary">
+  <h1>📖 Từ vựng tiếng Pháp</h1>
+  <p class="subtitle">Vocabulaire français – Học từ mới mỗi ngày.</p>
+  <input id="wordSearch" placeholder="Tìm từ tiếng Pháp hoặc tiếng Việt...">
+  <div id="wordList"></div>
+</section>
+
+<!-- LUYỆN NGHE -->
+<section class="view" id="listening">
+  <h1>🎧 Luyện nghe tiếng Pháp</h1>
+  <div class="card">
+    <h3>Écoutez et comprenez</h3>
+    <p>Nhập câu tiếng Pháp hoặc chọn câu mẫu để nghe.</p>
+    <textarea id="listenText" rows="4">Bonjour ! Comment allez-vous ? Je m'appelle Marie et j'habite à Paris.</textarea>
+    <button class="btn" onclick="speakText('listenText')">🔊 Nghe tiếng Pháp</button>
+    <button class="btn secondary" onclick="stopSpeech()">Dừng</button>
+  </div>
+  <div class="card">
+    <h3>Câu luyện nghe mẫu</h3>
+    <p>Bonjour, je voudrais un café, s'il vous plaît.</p>
+    <button class="btn secondary" onclick="speak('Bonjour, je voudrais un café, s’il vous plaît.')">Nghe câu mẫu</button>
+  </div>
+</section>
+
+<!-- LUYỆN NÓI -->
+<section class="view" id="speaking">
+  <h1>🗣️ Luyện phát âm</h1>
+  <div class="card">
+    <h3>Prononciation française</h3>
+    <p>Nhập câu tiếng Pháp để nghe giọng đọc mẫu.</p>
+    <input id="speakText" value="Je voudrais apprendre le français.">
+    <button class="btn" onclick="speakText('speakText')">🔊 Nghe mẫu</button>
+  </div>
+  <div class="card">
+    <h3>Gợi ý luyện nói</h3>
+    <ol>
+      <li>Nghe câu mẫu hai lần.</li>
+      <li>Đọc lại chậm và rõ ràng.</li>
+      <li>Chú ý âm mũi: an, en, on, in.</li>
+      <li>Chú ý nối âm và ngữ điệu.</li>
+    </ol>
+    <p class="notice">Chức năng nhận diện giọng nói tùy thuộc trình duyệt và thiết bị. Website chưa tự chấm điểm phát âm.</p>
+    <button class="btn secondary" onclick="startSpeechRecognition()">🎙️ Thử đọc bằng micro</button>
+    <p id="speechResult"></p>
+  </div>
+</section>
+
+<!-- AI -->
+<section class="view" id="ai">
+  <h1>🤖 AI Français</h1>
+  <p class="subtitle">Votre assistant intelligent pour apprendre le français.</p>
+  <div class="card">
+    <label for="botType">Chọn trợ lý</label>
+    <select id="botType">
+      <option value="teacher">AI Giáo viên tiếng Pháp</option>
+      <option value="conversation">AI Luyện giao tiếp</option>
+      <option value="grammar">AI Ngữ pháp</option>
+      <option value="exam">AI Luyện thi DELF</option>
+    </select>
+    <div class="notice">
+      Phiên bản hiện tại có giao diện trợ lý. Muốn AI trả lời thông minh thực sự cần kết nối máy chủ an toàn. Không nhập mật khẩu hoặc thông tin cá nhân vào đây.
+    </div>
+    <div class="chat-box" id="chatLog">
+      <div class="message bot">Bonjour ! Je suis votre assistant de français. Comment puis-je vous aider ?</div>
+    </div>
+    <form id="chatForm">
+      <input id="chatInput" placeholder="Nhập câu hỏi bằng tiếng Pháp hoặc tiếng Việt..." required>
+      <button class="btn" type="submit">Gửi tin nhắn</button>
+    </form>
+  </div>
+</section>
+
+<!-- TIẾN ĐỘ -->
+<section class="view" id="progress">
+  <h1>📊 Tiến độ học tập</h1>
+  <div id="progressContent"></div>
+  <button class="btn secondary" onclick="exportProgress()">Xuất dữ liệu học tập</button>
+  <button class="btn red" onclick="resetProgress()">Xóa tiến độ</button>
+</section>
+
+<!-- HƯỚNG DẪN -->
+<section class="view" id="guide">
+  <h1>❓ Hướng dẫn sử dụng</h1>
+  <div class="card">
+    <h3>1. Khóa học</h3>
+    <p>Chọn A1, A2, B1 hoặc B2, sau đó chọn bài học theo từng unité.</p>
+    <h3>2. Bài tập</h3>
+    <p>Chọn cấp độ, trả lời câu hỏi và xem kết quả.</p>
+    <h3>3. Từ vựng</h3>
+    <p>Tìm kiếm từ tiếng Pháp, xem nghĩa tiếng Việt và nghe phát âm.</p>
+    <h3>4. Luyện nghe và nói</h3>
+    <p>Sử dụng chức năng đọc văn bản tiếng Pháp trên thiết bị.</p>
+    <h3>5. Theo dõi tiến độ</h3>
+    <p>Kết quả học tập được lưu trên trình duyệt của thiết bị đang sử dụng.</p>
+    <h3>6. AI Français</h3>
+    <p>Cần cấu hình máy chủ AI riêng để sử dụng hội thoại AI thực sự.</p>
+  </div>
+</section>
+
+<div class="footer">
+  FRANÇAIS PLUS © 2026 · Apprendre le français autrement 🇫🇷
+</div>
+
+</main>
+</div>
+
+<script>
+"use strict";
+
+/* =====================================
+   DỮ LIỆU BÀI HỌC A1 - B2
+===================================== */
+
+const lessons = {
+ A1:[
+  ["Unité 1 – Bonjour !","Chào hỏi và giới thiệu bản thân","Être, avoir, s’appeler","Bonjour ! Je m’appelle Lan. Je suis vietnamienne.","bonjour = xin chào; enchanté = rất vui được gặp"],
+  ["Unité 2 – Au quotidien","Sinh hoạt hằng ngày","Động từ nhóm -er, giờ giấc","Je me lève à sept heures.","se lever = thức dậy; travailler = làm việc"],
+  ["Unité 3 – En ville","Địa điểm và hỏi đường","Il y a, giới từ địa điểm","La gare est à côté du café.","la gare = nhà ga; à côté de = bên cạnh"],
+  ["Unité 4 – À table","Đồ ăn và gọi món","Mạo từ bộ phận","Je voudrais un café, s’il vous plaît.","un repas = bữa ăn; une boisson = đồ uống"]
+ ],
+ A2:[
+  ["Unité 1 – Souvenirs","Kể về quá khứ","Passé composé","Hier, j’ai visité Paris.","hier = hôm qua; visiter = tham quan"],
+  ["Unité 2 – Projets","Dự định và kế hoạch","Futur proche","Nous allons voyager demain.","voyager = du lịch; demain = ngày mai"],
+  ["Unité 3 – Se loger","Nhà ở và cuộc sống","So sánh hơn","Cet appartement est plus grand.","un appartement = căn hộ; louer = thuê"],
+  ["Unité 4 – Santé","Sức khỏe","Devoir, pouvoir, impératif","Tu dois te reposer.","se reposer = nghỉ ngơi; la santé = sức khỏe"]
+ ],
+ B1:[
+  ["Unité 1 – Relations","Quan hệ xã hội","Qui, que, où","C’est une personne qui m’aide.","une relation = mối quan hệ; soutenir = hỗ trợ"],
+  ["Unité 2 – Travail","Công việc","Conditionnel de politesse","Je souhaiterais obtenir des informations.","un emploi = việc làm; une candidature = hồ sơ"],
+  ["Unité 3 – Société","Xã hội","Connecteurs logiques","Les transports sont pratiques, pourtant ils sont chers.","pourtant = tuy nhiên; cependant = tuy nhiên"],
+  ["Unité 4 – Culture","Văn hóa","Subjonctif","Il faut que chacun puisse participer.","une œuvre = tác phẩm; participer = tham gia"]
+ ],
+ B2:[
+  ["Unité 1 – Débattre","Tranh luận","Nhượng bộ và lập luận","Bien que ce soit difficile, nous devons agir.","bien que = mặc dù; toutefois = tuy nhiên"],
+  ["Unité 2 – Environnement","Môi trường","Conditionnel passé","Nous aurions pu réduire les déchets.","les déchets = rác thải; durable = bền vững"],
+  ["Unité 3 – Médias","Truyền thông","Voix passive","Cette information a été confirmée.","une source = nguồn; fiable = đáng tin"],
+  ["Unité 4 – Profession","Nghề nghiệp","Văn phong trang trọng","Je vous remercie de votre attention.","une démarche = thủ tục; approfondi = chuyên sâu"]
+ ]
+};
+
+const questions = {
+ A1:[
+  ["Comment tu t’appelles ?",["Je m’appelle Lan.","Je suis vingt ans.","Je suis merci."],0,"Je m’appelle = Tôi tên là."],
+  ["Merci signifie…",["Xin chào","Cảm ơn","Tạm biệt"],1,"Merci = Cảm ơn."],
+  ["Je ___ vietnamien.",["suis","es","sommes"],0,"Je suis = Tôi là."],
+  ["La gare signifie…",["Trường học","Nhà ga","Bệnh viện"],1,"La gare = Nhà ga."],
+  ["Quel jour vient après lundi ?",["Mardi","Dimanche","Samedi"],0,"Mardi = Thứ Ba."],
+  ["Nous ___ français.",["parle","parlons","parlez"],1,"Nous parlons = Chúng tôi nói."],
+  ["J’habite ___ Hanoï.",["à","en","au"],0,"On dit habiter à Hanoï."],
+  ["Le contraire de grand est…",["petit","long","beau"],0,"Petit = nhỏ."],
+  ["Comment dit-on goodbye ?",["Bonjour","Au revoir","Merci"],1,"Au revoir = Tạm biệt."],
+  ["Je ___ un livre.",["lis","lit","lisez"],0,"Je lis = Tôi đọc."]
+ ],
+ A2:[
+  ["Hier, j’___ au cinéma.",["vais","suis allé","irai"],1,"Passé composé của aller dùng être."],
+  ["Demain, nous ___ voyager.",["allons","sommes","avons"],0,"Futur proche = aller + infinitif."],
+  ["Le contraire de facile est…",["simple","difficile","rapide"],1,"Difficile = khó."],
+  ["Je vais ___ France.",["à","en","au"],1,"On dit aller en France."],
+  ["Depuis deux ans, il ___ ici.",["habite","a habité","habitera"],0,"Depuis + présent."],
+  ["Elle est ___ grande que moi.",["plus","très","beaucoup"],0,"Comparatif: plus… que."],
+  ["Vous ___ partir maintenant.",["devez","dois","doit"],0,"Vous devez."],
+  ["Nous avons ___ un musée.",["visité","visiter","visitons"],0,"Passé composé: avons visité."],
+  ["Je voudrais ___ eau.",["de l’","du","des"],0,"De l’eau."],
+  ["Il faut ___ attention.",["faire","fait","fais"],0,"Faire attention."]
+ ],
+ B1:[
+  ["La personne ___ parle est gentille.",["qui","que","où"],0,"Qui là chủ ngữ."],
+  ["Il est fatigué, ___ il continue.",["donc","pourtant","car"],1,"Pourtant = tuy nhiên."],
+  ["Si j’avais le temps, je ___ plus.",["lis","lirais","ai lu"],1,"Si + imparfait → conditionnel."],
+  ["Une candidature signifie…",["Hồ sơ ứng tuyển","Kỳ nghỉ","Cuộc họp"],0,"Une candidature = hồ sơ ứng tuyển."],
+  ["Il faut que tu ___.",["viens","viennes","viendras"],1,"Il faut que + subjonctif."],
+  ["Je connais la ville ___ tu habites.",["où","qui","que"],0,"Où chỉ địa điểm."],
+  ["Il travaille ___ réussir.",["pour","mais","donc"],0,"Pour + infinitif chỉ mục đích."],
+  ["Bien qu’il ___ fatigué…",["est","soit","sera"],1,"Bien que + subjonctif."],
+  ["Un avantage est…",["Ưu điểm","Nhược điểm","Khó khăn"],0,"Un avantage = ưu điểm."],
+  ["Elle m’a dit qu’elle ___ malade.",["était","est","sera"],0,"Lời nói gián tiếp."]
+ ],
+ B2:[
+  ["Bien que le sujet ___ complexe…",["est","soit","sera"],1,"Bien que + subjonctif."],
+  ["Cette décision a été ___.",["annoncé","annoncée","annoncées"],1,"Décision giống cái, số ít."],
+  ["Toutefois exprime…",["Mục đích","Sự đối lập","Thời gian"],1,"Toutefois = tuy nhiên."],
+  ["Si nous avions su, nous ___ autrement.",["agirons","aurions agi","agissons"],1,"Conditionnel passé."],
+  ["Une source fiable est…",["Crédible","Fausse","Inutile"],0,"Fiable = đáng tin."],
+  ["Il est nécessaire que vous ___.",["venez","veniez","viendrez"],1,"Subjonctif."],
+  ["Malgré la pluie, ils ___ sortis.",["sont","ont","étaient"],0,"Sortir dùng être trong trường hợp này."],
+  ["Un synonyme de cependant est…",["Néanmoins","Parce que","Ensuite"],0,"Néanmoins = tuy nhiên."],
+  ["Cette loi a été ___ en 2020.",["adopté","adoptée","adopter"],1,"Loi giống cái."],
+  ["À long terme signifie…",["Về lâu dài","Ngay lập tức","Hôm qua"],0,"À long terme = về lâu dài."]
+ ]
+};
+
+const vocabulary = {
+ A1:[
+  ["bonjour","xin chào"],["au revoir","tạm biệt"],["merci","cảm ơn"],
+  ["s’il vous plaît","làm ơn"],["la famille","gia đình"],
+  ["la mère","mẹ"],["le père","bố"],["un frère","anh/em trai"],
+  ["une sœur","chị/em gái"],["un ami","người bạn"],
+  ["une maison","ngôi nhà"],["un appartement","căn hộ"],
+  ["une chambre","phòng ngủ"],["une cuisine","nhà bếp"],
+  ["une école","trường học"],["un livre","quyển sách"],
+  ["un stylo","cây bút"],["une table","cái bàn"],
+  ["un chat","con mèo"],["un chien","con chó"],
+  ["l’eau","nước"],["le pain","bánh mì"],
+  ["une pomme","quả táo"],["le matin","buổi sáng"],
+  ["le soir","buổi tối"],["aujourd’hui","hôm nay"],
+  ["demain","ngày mai"],["hier","hôm qua"],
+  ["la gare","nhà ga"],["une rue","con đường"],
+  ["parler","nói"],["écouter","nghe"],["regarder","xem"],
+  ["aimer","thích"],["habiter","sinh sống"],["travailler","làm việc"]
+ ],
+ A2:[
+  ["un voyage","chuyến du lịch"],["un billet","vé"],
+  ["une réservation","đặt chỗ"],["un séjour","kỳ lưu trú"],
+  ["un itinéraire","lộ trình"],["un musée","bảo tàng"],
+  ["une exposition","triển lãm"],["un souvenir","kỷ niệm"],
+  ["un paysage","phong cảnh"],["une plage","bãi biển"],
+  ["un loyer","tiền thuê 
